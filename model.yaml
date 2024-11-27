@@ -1,0 +1,7 @@
+nc: 2
+
+names: ["acne", "spot"]
+
+train: /home/harrison/code/mclordm/skin_vision/models/data/images/train
+val: /home/harrison/code/mclordm/skin_vision/models/data/images/validation
+test: /home/harrison/code/mclordm/skin_vision/models/data/images/test

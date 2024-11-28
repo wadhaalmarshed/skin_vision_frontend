@@ -5,6 +5,7 @@ from io import BytesIO
 from PIL import Image
 from google.cloud import storage
 
+
 # Google Cloud Storage and FastAPI configuration
 BUCKET_NAME = "skin-vision-bucket"  # Replace with your GCS bucket name
 FASTAPI_URL = "http://127.0.0.1:8002/predict"  # FastAPI endpoint
@@ -38,7 +39,7 @@ def main():
 
         # Call FastAPI for model prediction
         #with st.spinner("Running model inference..."):
-            
+
         response = requests.post(FASTAPI_URL, files={"file": (uploaded_filename, uploaded_file, "image/png")})
         st.write(response)
 

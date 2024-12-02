@@ -56,7 +56,11 @@ def main():
         img.save(img_buffer, format="JPEG")
         img_buffer.seek(0)
 
-        response = requests.post(FASTAPI_URL, files={"file": ("filename.jpg", img_buffer, "image/jpg")})
+        response_list = requests.post(FASTAPI_URL, files={"file": ("filename.jpg", img_buffer, "image/jpg")})
+        response = Image.open(BytesIO(response_list[1]))
+        classes_dict = response_list[0]
+
+
     st.write(response)
     st.write(type(response))
     if response.status_code == 200:

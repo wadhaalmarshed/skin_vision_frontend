@@ -4,6 +4,9 @@ import uuid
 from io import BytesIO
 from PIL import Image
 from google.cloud import storage
+import base64
+from gbt_call import AI_response
+
 
 
 # Google Cloud Storage and FastAPI configuration
@@ -57,65 +60,20 @@ def main():
         img_buffer.seek(0)
 
         response = requests.post(FASTAPI_URL, files={"file": ("filename.jpg", img_buffer, "image/jpg")})
-    st.write(response)
-    st.write(type(response))
-    if response.status_code == 200:
-                st.write(response.status_code)
-                prediction_img=response.content
-                #history=response.content
-                #st.write(history)
-                # img_buffer=BytesIO()
-                # prediction_img=prediction_img.save(img_buffer, format="JPEG")
-                # img_buffer.seek(0)
-                # prediction_img=img_buffer.read()
-                st.image(Image.open(BytesIO(prediction_img)))
+        response_dict = response.json()
+        base64_img = response_dict["image"]
+        image_data = base64.b64decode(base64_img)
 
 
-                st.success("Inference completed!")
-                # Display predictions in a readable format
+        if response.status_code == 200:
+
+                    st.image(Image.open(BytesIO(image_data)))
+                    st.success("Inference completed!")
+                    if st.button("Click Me"):
+                        st.write(response_dict["class"])
+                        st.write(AI_response(response_dict["class"]))
 
 
-        # file_id = str(uuid.uuid4())
-        # destination_blob_name = f"raw-images/{file_id}_{image.name}"
-
-        # with st.spinner("Uploading to Google Cloud Storage..."):
-        #         picture = upload_to_gcs(BUCKET_NAME, prediction_img, destination_blob_name)
-        #         st.success("Upload successful!")
-
-    # Upload image through Streamlit
-
-
-    # if uploaded_file is not None and not enable:
-    #     # Display the uploaded image
-    #     st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
-
-    #     img = Image.open(uploaded_file)
-    #     img_buffer = BytesIO()
-    #     img.save(img_buffer, format="JPEG")
-    #     img_buffer.seek(0)
-
-    #     response = requests.post(FASTAPI_URL, files={"file": ("filename.jpg", img_buffer, "image/jpg")})
-    #     st.write(response)
-
-    #     if response.status_code == 200:
-    #             st.write(response)
-    #             predictions = response.json()
-    #             st.success("Inference completed!")
-    #             # Display predictions in a readable format
-    #             if predictions.get("predictions"):
-    #                 st.write("Predictions:")
-    #                 st.json(predictions["predictions"])
-    #             else:
-    #                 st.write("No objects detected.")
-
-        # # Generate a unique filename for the image
-        # file_id = str(uuid.uuid4())
-        # destination_blob_name = f"raw-images/{file_id}_{uploaded_file.name}"
-
-        # # Upload the image to Google Cloud Storage
-        # with st.spinner("Uploading to Google Cloud Storage..."):
-        #     uploaded_filename = upload_to_gcs(BUCKET_NAME, uploaded_file, destination_blob_name)
-        #     st.success("Upload successful!")
 
 
 

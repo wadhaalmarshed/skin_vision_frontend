@@ -1,9 +1,10 @@
 from openai import OpenAI
+import os
 
 
 def AI_response(dict_):
     client = OpenAI(
-        api_key="" # replace with real one or .env
+        api_key=os.getenv("openai_key") # replace with real one or .env
     )
 
     try:

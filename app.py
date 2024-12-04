@@ -8,7 +8,7 @@ from gbt_call import AI_response
 import os
 
 
-FASTAPI_URL = "http://127.0.0.1:8000/predict"  # FastAPI endpoint
+FASTAPI_URL = "https://skinvision-api-795799083149.europe-west1.run.app/predict"  # FastAPI endpoint
 
 
 #CSS & HTML

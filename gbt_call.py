@@ -18,6 +18,7 @@ def AI_response(dict_):
         For each product, explain why it was chosen, detailing key ingredients and how they address the respective issue.
         Provide tips on how to integrate the products into a skincare routine, including layering and precautions.
         Include a general reminder to consult a dermatologist for personalized advice or if issues persist.
+        if you received an empty dictionary this person has no skin issues just give general skin care advice.
         """
         # Create a streaming chat completion
         stream = client.chat.completions.create(

@@ -24,7 +24,7 @@ st.markdown(f'<style>{CSS}</style>', unsafe_allow_html=True)
 st.markdown("""
   <style>
     [data-testid=stSidebar] {
-      background-color: white;
+      background-color: grey;
     }
   </style>
 """, unsafe_allow_html=True)
@@ -204,6 +204,7 @@ def main():
 
                 st.success("First Stage Completed!")
                 if st.button("Get More Insight !"):
+                    st.write(" Your Skin Has The Following :")
                     html_content = ""
                     for key, value in response_dict["class"].items():
                         html_content += f"""

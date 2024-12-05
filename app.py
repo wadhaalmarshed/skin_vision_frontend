@@ -204,7 +204,7 @@ def main():
 
                 st.success("First Stage Completed!")
                 if st.button("Get More Insight !"):
-                    st.write(" Your Skin Has The Following :")
+                    st.write(" Your Skin Has The Following ")
                     html_content = ""
                     for key, value in response_dict["class"].items():
                         html_content += f"""
